@@ -7,6 +7,14 @@ export default class BootScene extends Phaser.Scene {
     }
 
     preload() {
+      this.load.image(
+  "nayla",
+  new URL(
+    "../../assets/images/player/nayla.png",
+    import.meta.url
+  ).href
+);
+
         this.load.on("loaderror", (file) => {
   console.error(
     "ERRO AO CARREGAR:",
@@ -26,7 +34,7 @@ this.load.on("filecomplete", (key) => {
   ).href
 );
 this.load.image(
-  "background_hills",
+  "backgroundHills",
   new URL(
     "../../assets/images/background/background_hills.png",
     import.meta.url
@@ -100,7 +108,7 @@ this.load.image(
 
 this.load.image(
     "menuBackground",
-    new URL("../../assets/images/background/menu.png", import.meta.url).href
+    new URL("../../assets/images/background/Menu.png", import.meta.url).href
 );
     }
 
