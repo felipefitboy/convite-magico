@@ -215,6 +215,18 @@ if (
   }
 
   createAudio() {
+    console.log(
+    "collectSound carregado:",
+    this.cache.audio.exists("collectSound")
+  );
+
+  console.log(
+    "gardenMusic carregada:",
+    this.cache.audio.exists("gardenMusic")
+  );
+
+  this.collectSound = null;
+  this.gardenMusic = null;
     this.collectSound = null;
     this.gardenMusic = null;
 
@@ -1622,6 +1634,20 @@ if (
       this.scale;
 
     this.stopPlayerAnimation();
+    let naylaVoice = null;
+
+if (
+  this.cache.audio.exists("naylaParabens")
+) {
+  naylaVoice = this.sound.add(
+    "naylaParabens",
+    {
+      volume: 1,
+    }
+  );
+
+  naylaVoice.play();
+}
 
     const darkOverlay =
       this.add
@@ -1717,7 +1743,7 @@ if (
     this.createConfetti(80);
 
     this.time.delayedCall(
-      2200,
+      3700,
       () => {
         this.tweens.add({
           targets: [

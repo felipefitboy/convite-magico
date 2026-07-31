@@ -20,6 +20,11 @@ this.load.audio(
   `${baseUrl}audio/collect.mp3`
 );  
 
+this.load.audio(
+  "naylaParabens",
+  `${baseUrl}audio/nayla-parabens.mp3`
+);
+
      this.load.spritesheet(
   "nayla",
   new URL(
