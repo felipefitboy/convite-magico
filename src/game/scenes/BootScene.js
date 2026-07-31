@@ -7,12 +7,29 @@ export default class BootScene extends Phaser.Scene {
     }
 
     preload() {
-      this.load.image(
+
+    const baseUrl = import.meta.env.BASE_URL;
+
+this.load.audio(
+  "gardenMusic",
+  `${baseUrl}audio/garden-music.mp3`
+);
+
+this.load.audio(
+  "collectSound",
+  `${baseUrl}audio/collect.mp3`
+);  
+
+     this.load.spritesheet(
   "nayla",
   new URL(
-    "../../assets/images/player/nayla.png",
+    "../../assets/images/player/nayla_spritesheet_128x128.png",
     import.meta.url
-  ).href
+  ).href,
+  {
+    frameWidth: 128,
+    frameHeight: 128,
+  }
 );
 
         this.load.on("loaderror", (file) => {
