@@ -1,9 +1,5 @@
 import Phaser from "phaser";
 
-import backgroundHillsUrl from "../../assets/images/background/hello-kitty/background_hills.png";
-
-import naylaSheetUrl from "../../assets/images/player/hello-kitty/nayla_spritesheet_128x128.png";
-
 import theme from "../themes/index.js";
 
 // Coloque o número que receberá as confirmações.
@@ -19,19 +15,7 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(
-      "backgroundHills",
-      backgroundHillsUrl
-    );
 
-    this.load.spritesheet(
-      "nayla",
-      naylaSheetUrl,
-      {
-        frameWidth: 128,
-        frameHeight: 128,
-      }
-    );
 
     // Imagem do convite final
     this.load.image(
@@ -42,17 +26,6 @@ export default class GardenScene extends Phaser.Scene {
   ).href
 );
 
-    // Efeito de coleta
-    this.load.audio(
-      "collectSound",
-      "/audio/collect.mp3"
-    );
-
-    // Música de fundo
-    this.load.audio(
-      "gardenMusic",
-      "/audio/garden-music.mp3"
-    );
   }
 
   create() {
