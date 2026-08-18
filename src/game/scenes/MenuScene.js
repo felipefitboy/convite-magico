@@ -7,10 +7,14 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   preload() {
+    if (this.textures.exists("menuBackground")) {
+      this.textures.remove("menuBackground");
+    }
+
     this.load.image(
       "menuBackground",
       new URL(
-        "../../assets/images/background/menu.png",
+        theme.background.menu,
         import.meta.url
       ).href
     );
@@ -28,14 +32,14 @@ export default class MenuScene extends Phaser.Scene {
       .setDisplaySize(width, height);
 
     const playButton = this.add
-  .rectangle(
-    width / 2,
-    height * 0.82,
-    360,
-    95,
-    0xffffff,
-    0
-  )
+      .rectangle(
+        width / 2,
+        height * 0.82,
+        360,
+        95,
+        0xffffff,
+        0
+      )
       .setInteractive({
         useHandCursor: true,
       });

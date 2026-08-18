@@ -11,28 +11,6 @@ export default class BootScene extends Phaser.Scene {
 
     const baseUrl = import.meta.env.BASE_URL;
 
-this.load.audio(
-  "gardenMusic",
-  `${baseUrl}audio/garden-music.mp3`
-);
-
-this.load.audio(
-  "collectSound",
-  `${baseUrl}audio/collect.mp3`
-);  
-
-     this.load.spritesheet(
-  "nayla",
-  new URL(
-    "../../assets/images/player/nayla_spritesheet_128x128.png",
-    import.meta.url
-  ).href,
-  {
-    frameWidth: 128,
-    frameHeight: 128,
-  }
-);
-
     this.load.on("loaderror", (file) => {
       console.error(
         "ERRO AO CARREGAR:",
@@ -132,11 +110,10 @@ this.load.audio(
     );
 
     // =========================
-    // Cenário (somente temas que usam)
+    // Cenário extra
     // =========================
 
     if (theme.scenery.enabled) {
-
       this.load.image(
         "tree01",
         new URL(

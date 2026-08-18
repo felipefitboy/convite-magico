@@ -34,21 +34,29 @@ const helloKittyTheme = {
 },
 
   collectibles: {
-    bow:
-      "../../assets/images/collectibles/hello-kitty/bow.png",
+  bow:
+    "../../assets/images/collectibles/hello-kitty/bow.png",
 
-    balloon:
-      "../../assets/images/collectibles/hello-kitty/balloon.png",
+  balloon:
+    "../../assets/images/collectibles/hello-kitty/balloon.png",
 
-    cupcake:
-      "../../assets/images/collectibles/hello-kitty/cupcake.png",
+  cupcake:
+    "../../assets/images/collectibles/hello-kitty/cupcake.png",
 
-    brigadeiro:
-      "../../assets/images/collectibles/hello-kitty/brigadeiro.png",
+  brigadeiro:
+    "../../assets/images/collectibles/hello-kitty/brigadeiro.png",
 
-    beijinho:
-      "../../assets/images/collectibles/hello-kitty/beijinho.png",
+  beijinho:
+    "../../assets/images/collectibles/hello-kitty/beijinho.png",
+
+  labels: {
+    bow: "Laço",
+    balloon: "Bexiga",
+    cupcake: "Cupcake",
+    brigadeiro: "Brigadeiro",
+    beijinho: "Beijinho",
   },
+},
 scenery: {
   enabled: true,
 
