@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import client from "../clients/index.js";
+
 
 export default class InviteScene extends Phaser.Scene {
   constructor() {
@@ -6,6 +8,7 @@ export default class InviteScene extends Phaser.Scene {
   }
 
   create() {
+    console.log(client);
     console.log("InviteScene iniciou!");
     const { width, height } = this.scale;
 
@@ -114,7 +117,7 @@ export default class InviteScene extends Phaser.Scene {
         backgroundColor: 0xf68ab5,
         hoverColor: 0xffa4c8,
         onClick: () => {
-          this.openGoogleMaps();
+         // this.openGoogleMaps();
         },
       });
 
@@ -127,7 +130,7 @@ export default class InviteScene extends Phaser.Scene {
         backgroundColor: 0x42b983,
         hoverColor: 0x65cca0,
         onClick: () => {
-          this.openWhatsApp();
+         // this.openWhatsApp();
         },
       });
 
@@ -250,28 +253,30 @@ export default class InviteScene extends Phaser.Scene {
     return container;
   }
 
-  openGoogleMaps() {
-    const mapsUrl =
-      "https://www.google.com/maps/search/?api=1&query=Restaurante+Familia+Nishimura+Av+da+Aldeia+1004+Barueri";
-
-    window.open(
-      mapsUrl,
-      "_blank"
-    );
-  }
+ openGoogleMaps() {
+  window.open(
+    client.links.maps,
+    "_blank"
+  );
+}
 
   openWhatsApp() {
-    const message =
-      encodeURIComponent(
-        "Olá! Confirmo minha presença na festa da Nayla no dia 05 de setembro, às 13h. 🎉"
-      );
-
-    const whatsappUrl =
-      `https://wa.me/5511986896523?text=${message}`;
-
-    window.open(
-      whatsappUrl,
-      "_blank"
+  const message =
+    encodeURIComponent(
+      client.texts.whatsappMessage
     );
-  }
+
+  const separator =
+    client.links.whatsapp.includes("?")
+      ? "&"
+      : "?";
+
+  const whatsappUrl =
+    `${client.links.whatsapp}${separator}text=${message}`;
+
+  window.open(
+    whatsappUrl,
+    "_blank"
+  );
+}
 }

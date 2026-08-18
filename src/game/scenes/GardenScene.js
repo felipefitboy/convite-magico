@@ -1,15 +1,17 @@
 import Phaser from "phaser";
 
-import backgroundHillsUrl from "../../assets/images/background/background_hills.png";
-import naylaSheetUrl from "../../assets/images/player/nayla_spritesheet_128x128.png";
-import conviteImagemUrl from "../../assets/images/Invite/convite.png";
+import backgroundHillsUrl from "../../assets/images/background/hello-kitty/background_hills.png";
+
+import naylaSheetUrl from "../../assets/images/player/hello-kitty/nayla_spritesheet_128x128.png";
+
+import theme from "../themes/index.js";
 
 // Coloque o número que receberá as confirmações.
 // Use somente números: 55 + DDD + telefone.
-const WHATSAPP_NUMBER = "5511986896523";
+const WHATSAPP_NUMBER = "";
 
 const PARTY_ADDRESS =
-  "Restaurante Família Nishimura, Avenida da Aldeia, 1004, Barueri, SP";
+  "";
 
 export default class GardenScene extends Phaser.Scene {
   constructor() {
@@ -33,9 +35,12 @@ export default class GardenScene extends Phaser.Scene {
 
     // Imagem do convite final
     this.load.image(
-      "conviteFinal",
-      conviteImagemUrl
-    );
+  "conviteFinal",
+  new URL(
+    theme.invite.image,
+    import.meta.url
+  ).href
+);
 
     // Efeito de coleta
     this.load.audio(
@@ -51,6 +56,19 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   create() {
+const naylaTexture =
+  this.textures.get("nayla");
+
+console.log(
+  "FRAMES NAYLA:",
+  naylaTexture.getFrameNames()
+);
+
+console.log(
+  "TOTAL FRAMES:",
+  naylaTexture.frameTotal
+);
+
     const { width, height } =
       this.scale;
 
@@ -96,123 +114,117 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   update() {
-    if (
-      this.isCelebrating ||
-      this.inviteStarted ||
-      this.finalInviteVisible
-    ) {
-      return;
-    }
-
-    const speed = 5;
-
-    let dx = 0;
-    let dy = 0;
-    let animationKey = null;
-
-    if (
-      this.cursors.left.isDown
-    ) {
-      dx = -speed;
-    } else if (
-      this.cursors.right.isDown
-    ) {
-      dx = speed;
-    }
-
-    if (
-      this.cursors.up.isDown
-    ) {
-      dy = -speed;
-    } else if (
-      this.cursors.down.isDown
-    ) {
-      dy = speed;
-    }
-// Controle pelo joystick no celular
-if (
-  dx === 0 &&
-  dy === 0 &&
-  this.joystickVector
-) {
-  dx =
-    this.joystickVector.x *
-    speed;
-
-  dy =
-    this.joystickVector.y *
-    speed;
-}
-    // Corrige a velocidade diagonal
-    if (
-      dx !== 0 &&
-      dy !== 0
-    ) {
-      dx *= 0.7071;
-      dy *= 0.7071;
-    }
-
-    if (dy < 0) {
-      animationKey =
-        "nayla-walk-up";
-
-      this.lastDirection = "up";
-      this.player.setFlipX(false);
-    } else if (dy > 0) {
-      animationKey =
-        "nayla-walk-down";
-
-      this.lastDirection = "down";
-      this.player.setFlipX(false);
-    } else if (dx > 0) {
-      animationKey =
-        "nayla-walk-side";
-
-      this.lastDirection = "right";
-      this.player.setFlipX(false);
-    } else if (dx < 0) {
-      animationKey =
-        "nayla-walk-side";
-
-      this.lastDirection = "left";
-      this.player.setFlipX(true);
-    }
-
-    this.player.x += dx;
-    this.player.y += dy;
-
-    const isMoving =
-      dx !== 0 ||
-      dy !== 0;
-
-    if (
-      isMoving &&
-      animationKey
-    ) {
-      this.player.anims.play(
-        animationKey,
-        true
-      );
-    } else {
-      this.stopPlayerAnimation();
-    }
-
-    this.player.x =
-      Phaser.Math.Clamp(
-        this.player.x,
-        50,
-        this.gameWidth - 50
-      );
-
-    this.player.y =
-      Phaser.Math.Clamp(
-        this.player.y,
-        75,
-        this.gameHeight - 100
-      );
-
-    this.checkItemCollection();
+  if (
+    this.isCelebrating ||
+    this.inviteStarted ||
+    this.finalInviteVisible
+  ) {
+    return;
   }
+
+  const speed = 5;
+
+  let dx = 0;
+  let dy = 0;
+  let animationKey = null;
+
+  // Teclado
+  if (this.cursors.left.isDown) {
+    dx = -speed;
+  } else if (this.cursors.right.isDown) {
+    dx = speed;
+  }
+
+  if (this.cursors.up.isDown) {
+    dy = -speed;
+  } else if (this.cursors.down.isDown) {
+    dy = speed;
+  }
+
+  // Controle pelo joystick
+  if (
+    dx === 0 &&
+    dy === 0 &&
+    this.joystickVector
+  ) {
+    dx =
+      this.joystickVector.x *
+      speed;
+
+    dy =
+      this.joystickVector.y *
+      speed;
+  }
+
+  // Corrige velocidade diagonal
+  if (
+    dx !== 0 &&
+    dy !== 0
+  ) {
+    dx *= 0.7071;
+    dy *= 0.7071;
+  }
+
+  // Escolhe animação
+ if (dy < 0) {
+  animationKey = "nayla-walk-up";
+  this.lastDirection = "up";
+  this.player.setFlipX(false);
+
+} else if (dy > 0) {
+  animationKey = "nayla-walk-down";
+  this.lastDirection = "down";
+  this.player.setFlipX(false);
+
+} else if (dx > 0) {
+  animationKey = "nayla-walk-side";
+  this.lastDirection = "right";
+  this.player.setFlipX(false);
+
+} else if (dx < 0) {
+  animationKey = "nayla-walk-side";
+  this.lastDirection = "left";
+  this.player.setFlipX(true);
+}
+
+  // Move personagem
+  this.player.x += dx;
+  this.player.y += dy;
+
+  const isMoving =
+    dx !== 0 ||
+    dy !== 0;
+
+  if (
+    isMoving &&
+    animationKey
+  ) {
+    this.player.anims.play(
+      animationKey,
+      true
+    );
+  } else {
+    this.stopPlayerAnimation();
+  }
+
+  // Limites da tela
+  this.player.x =
+    Phaser.Math.Clamp(
+      this.player.x,
+      50,
+      this.gameWidth - 50
+    );
+
+  this.player.y =
+    Phaser.Math.Clamp(
+      this.player.y,
+      75,
+      this.gameHeight - 100
+    );
+
+  // Verifica coleta
+  this.checkItemCollection();
+}
 
   createAudio() {
     console.log(
@@ -301,6 +313,8 @@ if (
 
     return tree;
   };
+
+ if (theme.scenery.enabled) {
 
   // Árvores do fundo
   createTree({
@@ -401,6 +415,8 @@ if (
       .setOrigin(0.5, 1)
       .setScale(0.1)
       .setDepth(8);
+  }
+
 
     // Movimento sutil das flores
     this.tweens.add({
@@ -928,51 +944,51 @@ animateSingleFirefly(firefly) {
     },
   });
 }
-  createCollectibles() {
+ createCollectibles()  {
     this.partyItems = [];
 
     const itemsData = [
-      {
-        key: "bow",
-        name: "Laço",
-        x: 185,
-        y: 535,
-        width: 65,
-        height: 65,
-      },
-      {
-        key: "balloon",
-        name: "Bexiga",
-        x: 820,
-        y: 440,
-        width: 55,
-        height: 85,
-      },
-      {
-        key: "cupcake",
-        name: "Cupcake",
-        x: 650,
-        y: 550,
-        width: 65,
-        height: 65,
-      },
-      {
-        key: "brigadeiro",
-        name: "Brigadeiro",
-        x: 1045,
-        y: 560,
-        width: 65,
-        height: 65,
-      },
-      {
-        key: "beijinho",
-        name: "Beijinho",
-        x: 320,
-        y: 610,
-        width: 65,
-        height: 65,
-      },
-    ];
+  {
+    key: "bow",
+    name: theme.collectibles.labels.bow,
+    x: 185,
+    y: 535,
+    width: 65,
+    height: 65,
+  },
+  {
+    key: "balloon",
+    name: theme.collectibles.labels.balloon,
+    x: 820,
+    y: 440,
+    width: 55,
+    height: 85,
+  },
+  {
+    key: "cupcake",
+    name: theme.collectibles.labels.cupcake,
+    x: 650,
+    y: 550,
+    width: 65,
+    height: 65,
+  },
+  {
+    key: "brigadeiro",
+    name: theme.collectibles.labels.brigadeiro,
+    x: 1045,
+    y: 560,
+    width: 65,
+    height: 65,
+  },
+  {
+    key: "beijinho",
+    name: theme.collectibles.labels.beijinho,
+    x: 320,
+    y: 610,
+    width: 65,
+    height: 65,
+  },
+];
 
     itemsData.forEach(
       (itemData) => {
@@ -1316,97 +1332,51 @@ resetVirtualJoystick() {
 }
 
   createPlayerAnimations() {
-    if (
-      !this.anims.exists(
-        "nayla-walk-down"
-      )
-    ) {
-      this.anims.create({
-        key: "nayla-walk-down",
-        frames: [
-          {
-            key: "nayla",
-            frame: 0,
-          },
-          {
-            key: "nayla",
-            frame: 1,
-          },
-          {
-            key: "nayla",
-            frame: 2,
-          },
-          {
-            key: "nayla",
-            frame: 3,
-          },
-        ],
-        frameRate: 7,
-        repeat: -1,
-      });
-    }
-
-    if (
-      !this.anims.exists(
-        "nayla-walk-up"
-      )
-    ) {
-      this.anims.create({
-        key: "nayla-walk-up",
-        frames: [
-          {
-            key: "nayla",
-            frame: 4,
-          },
-          {
-            key: "nayla",
-            frame: 5,
-          },
-          {
-            key: "nayla",
-            frame: 6,
-          },
-          {
-            key: "nayla",
-            frame: 5,
-          },
-        ],
-        frameRate: 7,
-        repeat: -1,
-      });
-    }
-
-    if (
-      !this.anims.exists(
-        "nayla-walk-side"
-      )
-    ) {
-      this.anims.create({
-        key: "nayla-walk-side",
-        frames: [
-          {
-            key: "nayla",
-            frame: 9,
-          },
-          {
-            key: "nayla",
-            frame: 10,
-          },
-          {
-            key: "nayla",
-            frame: 11,
-          },
-          {
-            key: "nayla",
-            frame: 10,
-          },
-        ],
-        frameRate: 7,
-        repeat: -1,
-      });
-    }
+  // BAIXO / FRENTE
+  if (!this.anims.exists("nayla-walk-down")) {
+    this.anims.create({
+      key: "nayla-walk-down",
+      frames: [
+        { key: "nayla", frame: 0 },
+        { key: "nayla", frame: 1 },
+        { key: "nayla", frame: 2 },
+        { key: "nayla", frame: 3 },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
   }
 
+  // CIMA / COSTAS
+  if (!this.anims.exists("nayla-walk-up")) {
+    this.anims.create({
+      key: "nayla-walk-up",
+      frames: [
+        { key: "nayla", frame: 4 },
+        { key: "nayla", frame: 5 },
+        { key: "nayla", frame: 6 },
+        { key: "nayla", frame: 7 },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
+  }
+
+  // LATERAL
+  if (!this.anims.exists("nayla-walk-side")) {
+    this.anims.create({
+      key: "nayla-walk-side",
+      frames: [
+        { key: "nayla", frame: 9 },
+        { key: "nayla", frame: 10 },
+        { key: "nayla", frame: 11 },
+        { key: "nayla", frame: 10 },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
+  }
+}
   checkItemCollection() {
     this.partyItems.forEach(
       (item) => {
@@ -2402,38 +2372,35 @@ const inviteFinalY =
     }
   }
 
-  stopPlayerAnimation() {
-    if (!this.player) {
-      return;
-    }
-
-    this.player.anims.stop();
-
-    this.player.setScale(
-      this.playerNormalScaleX,
-      this.playerNormalScaleY
-    );
-
-    if (
-      this.lastDirection === "up"
-    ) {
-      this.player.setFlipX(false);
-      this.player.setFrame(5);
-    } else if (
-      this.lastDirection === "right"
-    ) {
-      this.player.setFlipX(false);
-      this.player.setFrame(10);
-    } else if (
-      this.lastDirection === "left"
-    ) {
-      this.player.setFlipX(true);
-      this.player.setFrame(10);
-    } else {
-      this.player.setFlipX(false);
-      this.player.setFrame(0);
-    }
+ stopPlayerAnimation() {
+  if (!this.player) {
+    return;
   }
+
+  this.player.anims.stop();
+
+  this.player.setScale(
+    this.playerNormalScaleX,
+    this.playerNormalScaleY
+  );
+
+  if (this.lastDirection === "up") {
+    this.player.setFlipX(false);
+    this.player.setFrame(5);
+
+  } else if (this.lastDirection === "right") {
+    this.player.setFlipX(false);
+    this.player.setFrame(10);
+
+  } else if (this.lastDirection === "left") {
+    this.player.setFlipX(true);
+    this.player.setFrame(10);
+
+  } else {
+    this.player.setFlipX(false);
+    this.player.setFrame(0);
+  }
+}
 
   startGardenMusic() {
     if (
