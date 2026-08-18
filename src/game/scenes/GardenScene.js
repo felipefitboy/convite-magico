@@ -17,13 +17,10 @@ export default class GardenScene extends Phaser.Scene {
   preload() {
 
 
-    // Imagem do convite final
-    this.load.image(
+// Imagem do convite final
+this.load.image(
   "conviteFinal",
-  new URL(
-    theme.invite.image,
-    import.meta.url
-  ).href
+  theme.invite.image
 );
 
   }

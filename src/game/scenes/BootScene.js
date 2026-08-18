@@ -43,13 +43,13 @@ export default class BootScene extends Phaser.Scene {
 
     this.load.spritesheet(
       theme.player.textureKey,
-      new URL(
-        theme.player.spritesheet,
-        import.meta.url
-      ).href,
+      theme.player.spritesheet,
       {
-        frameWidth: theme.player.frameWidth,
-        frameHeight: theme.player.frameHeight,
+        frameWidth:
+          theme.player.frameWidth,
+
+        frameHeight:
+          theme.player.frameHeight,
       }
     );
 
@@ -59,42 +59,27 @@ export default class BootScene extends Phaser.Scene {
 
     this.load.image(
       "bow",
-      new URL(
-        theme.collectibles.bow,
-        import.meta.url
-      ).href
+      theme.collectibles.bow
     );
 
     this.load.image(
       "balloon",
-      new URL(
-        theme.collectibles.balloon,
-        import.meta.url
-      ).href
+      theme.collectibles.balloon
     );
 
     this.load.image(
       "cupcake",
-      new URL(
-        theme.collectibles.cupcake,
-        import.meta.url
-      ).href
+      theme.collectibles.cupcake
     );
 
     this.load.image(
       "brigadeiro",
-      new URL(
-        theme.collectibles.brigadeiro,
-        import.meta.url
-      ).href
+      theme.collectibles.brigadeiro
     );
 
     this.load.image(
       "beijinho",
-      new URL(
-        theme.collectibles.beijinho,
-        import.meta.url
-      ).href
+      theme.collectibles.beijinho
     );
 
     // =========================
@@ -103,10 +88,7 @@ export default class BootScene extends Phaser.Scene {
 
     this.load.image(
       "backgroundHills",
-      new URL(
-        theme.background.garden,
-        import.meta.url
-      ).href
+      theme.background.garden
     );
 
     // =========================
@@ -116,58 +98,37 @@ export default class BootScene extends Phaser.Scene {
     if (theme.scenery.enabled) {
       this.load.image(
         "tree01",
-        new URL(
-          theme.scenery.tree01,
-          import.meta.url
-        ).href
+        theme.scenery.tree01
       );
 
       this.load.image(
         "tree02",
-        new URL(
-          theme.scenery.tree02,
-          import.meta.url
-        ).href
+        theme.scenery.tree02
       );
 
       this.load.image(
         "tree03",
-        new URL(
-          theme.scenery.tree03,
-          import.meta.url
-        ).href
+        theme.scenery.tree03
       );
 
       this.load.image(
         "grass",
-        new URL(
-          theme.scenery.grass,
-          import.meta.url
-        ).href
+        theme.scenery.grass
       );
 
       this.load.image(
         "flower01",
-        new URL(
-          theme.scenery.flower01,
-          import.meta.url
-        ).href
+        theme.scenery.flower01
       );
 
       this.load.image(
         "flower02",
-        new URL(
-          theme.scenery.flower02,
-          import.meta.url
-        ).href
+        theme.scenery.flower02
       );
 
       this.load.image(
         "flower03",
-        new URL(
-          theme.scenery.flower03,
-          import.meta.url
-        ).href
+        theme.scenery.flower03
       );
     }
   }

@@ -13,10 +13,7 @@ export default class MenuScene extends Phaser.Scene {
 
     this.load.image(
       "menuBackground",
-      new URL(
-        theme.background.menu,
-        import.meta.url
-      ).href
+      theme.background.menu
     );
   }
 
@@ -29,7 +26,10 @@ export default class MenuScene extends Phaser.Scene {
         height / 2,
         "menuBackground"
       )
-      .setDisplaySize(width, height);
+      .setDisplaySize(
+        width,
+        height
+      );
 
     const playButton = this.add
       .rectangle(
@@ -44,22 +44,25 @@ export default class MenuScene extends Phaser.Scene {
         useHandCursor: true,
       });
 
-    playButton.on("pointerdown", () => {
-      this.cameras.main.fadeOut(
-        350,
-        255,
-        255,
-        255
-      );
+    playButton.on(
+      "pointerdown",
+      () => {
+        this.cameras.main.fadeOut(
+          350,
+          255,
+          255,
+          255
+        );
 
-      this.time.delayedCall(
-        350,
-        () => {
-          this.scene.start(
-            "GardenScene"
-          );
-        }
-      );
-    });
+        this.time.delayedCall(
+          350,
+          () => {
+            this.scene.start(
+              "GardenScene"
+            );
+          }
+        );
+      }
+    );
   }
 }

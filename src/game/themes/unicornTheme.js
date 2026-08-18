@@ -7,21 +7,29 @@ const unicornTheme = {
   },
 
   background: {
-    menu:
+    menu: new URL(
       "../../assets/images/background/unicorn/Menu.png",
+      import.meta.url
+    ).href,
 
-    garden:
+    garden: new URL(
       "../../assets/images/background/unicorn/background_hills.png",
+      import.meta.url
+    ).href,
   },
 
   player: {
     textureKey: "nayla",
 
-    spritesheet:
+    spritesheet: new URL(
       "../../assets/images/player/unicorn/nayla_spritesheet_128x128.png",
+      import.meta.url
+    ).href,
 
-    portrait:
+    portrait: new URL(
       "../../assets/images/player/unicorn/nayla.png",
+      import.meta.url
+    ).href,
 
     frameWidth: 256,
     frameHeight: 256,
@@ -33,20 +41,30 @@ const unicornTheme = {
   },
 
   collectibles: {
-    bow:
+    bow: new URL(
       "../../assets/images/collectibles/unicorn/bow.png",
+      import.meta.url
+    ).href,
 
-    balloon:
+    balloon: new URL(
       "../../assets/images/collectibles/unicorn/balloon.png",
+      import.meta.url
+    ).href,
 
-    cupcake:
+    cupcake: new URL(
       "../../assets/images/collectibles/unicorn/cupcake.png",
+      import.meta.url
+    ).href,
 
-    brigadeiro:
+    brigadeiro: new URL(
       "../../assets/images/collectibles/unicorn/brigadeiro.png",
+      import.meta.url
+    ).href,
 
-    beijinho:
+    beijinho: new URL(
       "../../assets/images/collectibles/unicorn/beijinho.png",
+      import.meta.url
+    ).href,
 
     labels: {
       bow: "Chifre mágico",
@@ -57,15 +75,15 @@ const unicornTheme = {
     },
   },
 
-  // O background do Unicórnio já possui
-  // árvores, flores e vegetação.
   scenery: {
     enabled: false,
   },
 
   invite: {
-    image:
+    image: new URL(
       "../../assets/images/Invite/unicorn/convite.png",
+      import.meta.url
+    ).href,
   },
 
   colors: {
