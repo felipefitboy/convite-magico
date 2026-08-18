@@ -95,14 +95,18 @@ console.log(
       .setDepth(-10);
 
     this.createAudio();
-    this.createGardenDecoration();
-    this.createExtraAnimations();
-    this.createCollectibles();
-    this.createPlayerAnimations();
-    this.createPlayer();
-    this.createScore();
-    this.createKeyboardControls();
-    this.createVirtualJoystick();
+
+if (theme.scenery.enabled) {
+  this.createGardenDecoration();
+}
+
+this.createExtraAnimations();
+this.createCollectibles();
+this.createPlayerAnimations();
+this.createPlayer();
+this.createScore();
+this.createKeyboardControls();
+this.createVirtualJoystick();
 
     // Para a música quando a cena for encerrada
     this.events.once(
